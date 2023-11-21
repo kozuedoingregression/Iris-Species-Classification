@@ -3,17 +3,17 @@ import numpy as np
 import joblib
 from flask import Flask, render_template, request
 
-app = Flask(__name__)
+application = Flask(__name__)
 data = pd.read_csv('database/Iris.xls')
 model = joblib.load("model/IrisFlowerClassification.pkl")
 
 
-@app.route('/')
+@application.route('/')
 def index():
     return render_template('index.html')
 
 
-@app.route('/predict', methods=['POST'])
+@application.route('/predict', methods=['POST'])
 def predict():
     SepalLengthCm = request.form.get('SepalLengthCm')
     SepalWidthCm = request.form.get('SepalWidthCm')
@@ -33,4 +33,4 @@ def predict():
         return "Predicted specie: Iris-virginica"
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    application.run(debug=True, port=5001)
